@@ -26,7 +26,7 @@ Route::post('login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::get('get-user', [PassportAuthController::class, 'userInfo']);
 
-    Route::resource('products', (string)[ProductController::class]);
+    Route::resource('products', [ProductController::class]);
     Route::resource('order-details', (string)[OrderDetailsController::class]);
     Route::resource('orders', (string)[OrdersController::class]);
     Route::resource('supplier-products', (string)[SupplierProductsController::class]);
