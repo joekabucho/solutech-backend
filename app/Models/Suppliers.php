@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Suppliers extends Model
 {
     protected $fillable = [
-        'name', 'created_at','updated_at'
+        'name', 'created_at','updated_at','deleted_at'
     ];
 
 }
