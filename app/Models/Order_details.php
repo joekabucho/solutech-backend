@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Order_details extends Model
 {
     protected $fillable = [
-        'supply_id','product_id', 'created_at','updated_at'
+        'order_id','product_id'
     ];
 }

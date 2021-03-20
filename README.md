@@ -1,62 +1,376 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# API Documentation Example
+This API uses `POST` request to communicate and HTTP [response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) to indenticate status and errors. All responses come in standard JSON. All requests must include a `content-type` of `application/json` and the body must be valid JSON.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Response Codes
+### Response Codes
+```
+200: Success
+400: Bad request
+401: Unauthorized
+404: Cannot be found
+405: Method not allowed
+422: Unprocessable Entity 
+50X: Server Error
+```
+### Error Codes Details
+```
+500: Server Error
+```
+### Example Error Message
+```json
+http code 401
+{
+    "message": "Orders not found",
+}
+```
 
-## About Laravel
+## Login
+**You send:**  Your  login credentials.
+**You get:** An `API-Token` with wich you can make further actions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Request:**
+```json
+POST /login HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: xy
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+{
+    "username": "foo",
+    "password": "1234567" 
+}
+```
+**Successful Response:**
+```json
+HTTP/1.1 200 OK
+Server: My RESTful API
+Content-Type: application/json
+Content-Length: xy
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+{
+   "apitoken": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "expirationDate": "2018-02-13T15:31:55.559Z"
+}
+```
+**Failed Response:**
+```json
+HTTP/1.1 401 Unauthorized
+Server: My RESTful API
+Content-Type: application/json
+Content-Length: xy
 
-## Learning Laravel
+{
+    "code": 500,
+    "message": "invalid crendetials",
+    "resolve": "The username or password is not correct."
+}
+``` 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Products
 
-## Laravel Sponsors
+**POST:**
+```json
+POST:http://localhost:8000/api/products.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+{
+    "message": "products record created",
+}
+``` 
+**PUT:**
+```json
+PUT:http://localhost:8000/api/products.
 
-### Premium Partners
+{
+"message": "products record updated",
+}
+``` 
+**GET:**
+```json
+GET:http://localhost:8000/api/proproducts.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+[
+  {
+    "id": 1,
+    "name": "test",
+    "description": "ni ngori msee",
+    "quantity": "10",
+    "created_at": "2021-03-20T09:54:52.000000Z",
+    "updated_at": "2021-03-20T09:54:52.000000Z"
+  }
+]
+``` 
 
-## Contributing
+**GET ONE:**
+```json
+GET:http://localhost:8000/api/products/{id}.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+[
+  {
+    "id": 1,
+    "name": "test",
+    "description": "ni ngori msee",
+    "quantity": "10",
+    "created_at": "2021-03-20T09:54:52.000000Z",
+    "updated_at": "2021-03-20T09:54:52.000000Z"
+  }
+]
+``` 
+**DELETE:**
+```json
+DELETE:http://localhost:8000/api/products/{id}.
 
-## Code of Conduct
+[
+  {
+    "message": "records deleted",
+  }
+]
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## ORDERS
 
-## Security Vulnerabilities
+**POST:**
+```json
+POST:http://localhost:8000/api/orders.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+{
+    "message": "orders record created",
+}
+``` 
+**PUT:**
+```json
+PUT:http://localhost:8000/api/orders/{id}.
 
-## License
+{
+"message": "orders record updated",
+}
+``` 
+**GET:**
+```json
+GET:http://localhost:8000/api/orders.
+[
+{
+"id": 1,
+"order_number": "3",
+"created_at": "2021-03-20T09:32:56.000000Z",
+"updated_at": "2021-03-20T09:32:56.000000Z"
+},
+{
+"id": 2,
+"order_number": "234234234",
+"created_at": "2021-03-20T09:33:05.000000Z",
+"updated_at": "2021-03-20T09:33:05.000000Z"
+}
+]
+``` 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**GET ONE:**
+```json
+GET:http://localhost:8000/api/orders/{id}.
+
+[
+ {
+   "id": 2,
+   "order_number": "234234234",
+   "created_at": "2021-03-20T09:33:05.000000Z",
+   "updated_at": "2021-03-20T09:33:05.000000Z"
+ }
+]
+``` 
+
+**DELETE:**
+```json
+DELETE:http://localhost:8000/api/orders/{id}.
+
+[
+  {
+    "message": "records deleted",
+  }
+]
+```
+
+## ORDER DETAILS
+
+**POST:**
+```json
+POST:http://localhost:8000/api/orderdetails.
+
+{
+    "message": "order details record created",
+}
+``` 
+**PUT:**
+```json
+PUT:http://localhost:8000/api/orderdetails/{id}.
+
+{
+"message": "order details record updated",
+}
+``` 
+**GET:**
+```json
+GET:http://localhost:8000/api/orderdetails.
+[
+{
+"id": 1,
+"order_id": 2,
+"product_id": 1,
+"created_at": "2021-03-20T10:10:24.000000Z",
+"updated_at": "2021-03-20T10:10:24.000000Z"
+},
+{
+"id": 2,
+"order_id": 2,
+"product_id": 1,
+"created_at": "2021-03-20T10:10:29.000000Z",
+"updated_at": "2021-03-20T10:10:29.000000Z"
+}
+]
+``` 
+
+**GET ONE:**
+```json
+GET:http://localhost:8000/api/orderdetails/{id}.
+
+{
+"id": 1,
+"order_id": 2,
+"product_id": 1,
+"created_at": "2021-03-20T10:10:24.000000Z",
+"updated_at": "2021-03-20T10:10:24.000000Z"
+},
+``` 
+
+**DELETE:**
+```json
+DELETE:http://localhost:8000/api/orderdetails/{id}.
+
+[
+  {
+    "message": "records deleted",
+  }
+]
+```
+
+
+## SUPPLIERS
+
+**POST:**
+```json
+POST:http://localhost:8000/api/suppliers.
+
+{
+    "message": "suppliers record created",
+}
+``` 
+**PUT:**
+```json
+PUT:http://localhost:8000/api/suppliers/{id}.
+
+{
+"message": "suppliers record updated",
+}
+``` 
+**GET:**
+```json
+GET:http://localhost:8000/api/suppliers.
+[
+{
+"id": 2,
+"name": "joe",
+"created_at": "2021-03-20T09:16:33.000000Z",
+"updated_at": "2021-03-20T09:16:33.000000Z"
+},
+{
+"id": 3,
+"name": "joe",
+"created_at": "2021-03-20T09:16:36.000000Z",
+"updated_at": "2021-03-20T09:16:36.000000Z"
+}
+]
+``` 
+
+**GET ONE:**
+```json
+GET:http://localhost:8000/api/suppliers/{id}.
+
+{
+"id": 2,
+"name": "joe",
+"created_at": "2021-03-20T09:16:33.000000Z",
+"updated_at": "2021-03-20T09:16:33.000000Z"
+},
+``` 
+
+**DELETE:**
+```json
+DELETE:http://localhost:8000/api/suppliers/{id}.
+
+[
+  {
+    "message": "records deleted",
+  }
+]
+```
+## SUPPLIERS PRODUCTS
+
+**POST:**
+```json
+POST:http://localhost:8000/api/supplierproducts.
+
+{
+    "message": "suppliers products record created",
+}
+``` 
+**PUT:**
+```json
+PUT:http://localhost:8000/api/supplierproducts/{id}.
+
+{
+"message": "suppliers products updated",
+}
+``` 
+**GET:**
+```json
+GET:http://localhost:8000/api/supplierproducts.
+[
+{
+"id": 3,
+"supply_id": 2,
+"product_id": 1,
+"created_at": "2021-03-20T10:20:33.000000Z",
+"updated_at": "2021-03-20T10:20:33.000000Z"
+},
+{
+"id": 4,
+"supply_id": 2,
+"product_id": 1,
+"created_at": "2021-03-20T10:20:36.000000Z",
+"updated_at": "2021-03-20T10:20:36.000000Z"
+}
+]
+``` 
+
+**GET ONE:**
+```json
+GET:http://localhost:8000/api/supplierproducts/{id}.
+
+{
+"id": 3,
+"supply_id": 2,
+"product_id": 1,
+"created_at": "2021-03-20T10:20:33.000000Z",
+"updated_at": "2021-03-20T10:20:33.000000Z"
+},
+``` 
+
+**DELETE:**
+```json
+DELETE:http://localhost:8000/api/supplierproducts/{id}.
+
+[
+  {
+    "message": "records deleted",
+  }
+]
+```

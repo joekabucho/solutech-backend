@@ -20,7 +20,7 @@ class OrdersController extends Controller
             return response($orders, 200);
         } else {
             return response()->json([
-                "message" => "Product not found"
+                "message" => "Orders not found"
             ], 404);
         }
     }
@@ -28,16 +28,11 @@ class OrdersController extends Controller
     public function createOrders(Request $request): JsonResponse
     {
         $orders= new Orders();
-        $orders->order_id = $request->order_id;
-        $orders->product_id = $request->product_id;
-        $orders->created_at = $request->created_at;
-        $orders->updated_at = $request->updated_at;
-        $orders->deleted_at = $request->deleted_at;
-
+        $orders->order_number = $request->order_number;
         $orders->save();
 
         return response()->json([
-            "message" => "Product record created"
+            "message" => "Orders record created"
         ], 201);
     }
 
@@ -45,8 +40,7 @@ class OrdersController extends Controller
         if (Orders::where('id', $id)->exists()) {
             $orders = Orders::find($id);
 
-            $orders->order_id = is_null($request->order_id) ? $orders->order_id : $orders->order_id;
-            $orders->product_id = is_null($request->product_id) ? $orders->product_id : $orders->product_id;
+            $orders->order_number = is_null($request->order_number) ? $orders->order_number : $orders->order_number;
             $orders->save();
 
             return response()->json([
@@ -54,7 +48,7 @@ class OrdersController extends Controller
             ], 200);
         } else {
             return response()->json([
-                "message" => "Order details not found"
+                "message" => "Order  not found"
             ], 404);
         }
     }
@@ -69,7 +63,7 @@ class OrdersController extends Controller
             ], 202);
         } else {
             return response()->json([
-                "message" => "Order details not found"
+                "message" => "Order  not found"
             ], 404);
         }
     }

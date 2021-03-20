@@ -44,7 +44,7 @@ Route::put('orders/{id}', [OrdersController::class, 'updateOrders']);
 Route::delete('orders/{id}', [OrdersController::class, 'deleteOrders']);
 
 Route::post('suppliers', [SuppliersController::class, 'createSuppliers']);
-Route::get('suppliers', [SuppliersController::class, 'getAllSupplier']);
+Route::get('suppliers', [SuppliersController::class, 'getAllSuppliers']);
 Route::get('suppliers/{id}', [SuppliersController::class, 'getSupplier']);
 Route::put('suppliers/{id}', [SuppliersController::class, 'updateSupplier']);
 Route::delete('suppliers/{id}', [SuppliersController::class, 'deleteSuppliers']);
