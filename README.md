@@ -65,8 +65,7 @@ Content-Length: xy
 
 {
     "code": 500,
-    "message": "invalid crendetials",
-    "resolve": "The username or password is not correct."
+    "message": "invalid parameters provided",
 }
 ``` 
 
@@ -112,7 +111,7 @@ Content-Length: xy
     "message": "unauthorised",
 }
 ``` 
-**for all subsequent requests rememnber to include bearer token in the header**
+**for all subsequent requests remember to include bearer token in the header**
 ```json Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiY2ZkNWQ3ODNiNjIxMWRiMzUzNGRmZDhjZGI4NGFlMDg3NzQ3MTYzM2VlMmI1NjhhNzU4Y2QwOTM5ZjgyNmMxNDJkZjNhN2RmMTYzOWExYjciLCJpYXQiOiIxNjE2MjM4NzkzLjM5ODA2MCIsIm5iZiI6IjE2MTYyMzg3OTMuMzk4MDY0IiwiZXhwIjoiMTY0Nzc3NDc5My4yNTY0MDAiLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.Bvgs_p-b_bKguIpvIXBGP5AWLOnnP1s1stSipEV_1nfG49ttc3wOl7MoUinq7th8kRM2ZduFyvwx-Wa9RXo5ZThxLjkbp2b0VUz6SClEpSa1V6VHWeLkHOrfxxyx8UNJKiASUmcFZdERxxMDJ7r0meN453pijC7E5LQzb_DYmmHAVChbvUY0vpfn7ANZVnjS1klCq50RDbx-2i3djtPw2QI7goFDe-ieR8AV0cb4wg_wTilp_LgCxlbsgQbPIpMS4E9K43q1P_ocDCFf8N5e6qoUxA6EAKW-wNf-eLnJT1wfoKQPqcB64H2R1oe0o8VEMXhf5lB22zZhsgVqvgVnUlTIVthtKPjVTPDgrMSrkbj6t_L3YjS6RP06nvBizUEInWoMLTYOUrNq4Z3dMmt71sjSDSeuK6vYOj3B-vQuurejjuYRHoQ_5acwqKn8urPyqm7WqvsOwKhVF7IByTeWSyXAqL-1zcJxlIy0JljUjObkOLRE-MqWLapAJojOzCUVVgfa9bXfmsNIlbSq7qSEI8SKGm3o2HrcHtfN_p4joUh3yA26zFR06GgaJrtQ6hUV5lGsDm4i9bYYYT-MCcgm2m_FjrSPM0OF1OB7t7VO2-39IpPGLK_KP4YJL0iHC32jOziQKCzl4M0g2YSVrPeiCM9yoc4ZZxZZFNQI0SoCGik```
 ## Products
 
