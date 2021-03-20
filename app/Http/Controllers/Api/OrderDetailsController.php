@@ -15,7 +15,7 @@ class OrderDetailsController extends Controller
         return response($order_details, 200);
     }
 
-    public function getOrderDetails($id) {
+    public function getOrderDetail($id) {
         if (Order_details::where('id', $id)->exists()) {
             $order_details = Order_details::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
             return response($order_details, 200);
