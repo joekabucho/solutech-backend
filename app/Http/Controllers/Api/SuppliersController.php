@@ -20,7 +20,7 @@ class SuppliersController extends Controller
             return response($supplier, 200);
         } else {
             return response()->json([
-                "message" => "Product not found"
+                "message" => "Suppliers not found"
             ], 404);
         }
     }
@@ -29,14 +29,11 @@ class SuppliersController extends Controller
     {
         $supplier= new Suppliers();
         $supplier->name = $request->name;
-        $supplier->created_at = $request->created_at;
-        $supplier->updated_at = $request->updated_at;
-        $supplier->deleted_at = $request->deleted_at;
 
         $supplier->save();
 
         return response()->json([
-            "message" => "Product record created"
+            "message" => "Suppliers record created"
         ], 201);
     }
 
@@ -48,11 +45,11 @@ class SuppliersController extends Controller
             $supplier->save();
 
             return response()->json([
-                "message" => "records updated successfully"
+                "message" => "Suppliers updated successfully"
             ], 200);
         } else {
             return response()->json([
-                "message" => "Order details not found"
+                "message" => "Suppliers details not found"
             ], 404);
         }
     }
@@ -67,7 +64,7 @@ class SuppliersController extends Controller
             ], 202);
         } else {
             return response()->json([
-                "message" => "Order details not found"
+                "message" => "Suppliers details not found"
             ], 404);
         }
     }

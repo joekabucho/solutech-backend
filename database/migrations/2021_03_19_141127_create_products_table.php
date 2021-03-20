@@ -20,9 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('name',45);
             $table->string('description',45);
             $table->string('quantity',45);
-            $table->string('created_at',45);
-            $table->string('updated_at',45);
-            $table->dateTime('deleted_at');
+            $table->timestamps();
+
         });
     }
 

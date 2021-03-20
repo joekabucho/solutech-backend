@@ -21,7 +21,7 @@ class OrderDetailsController extends Controller
             return response($order_details, 200);
         } else {
             return response()->json([
-                "message" => "Product not found"
+                "message" => "Order details not found"
             ], 404);
         }
     }
@@ -31,14 +31,11 @@ class OrderDetailsController extends Controller
         $order_details = new Order_details();
         $order_details->order_id = $request->order_id;
         $order_details->product_id = $request->product_id;
-        $order_details->created_at = $request->created_at;
-        $order_details->updated_at = $request->updated_at;
-        $order_details->deleted_at = $request->deleted_at;
 
         $order_details->save();
 
         return response()->json([
-            "message" => "Product record created"
+            "message" => "Order details record created"
         ], 201);
     }
 

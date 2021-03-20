@@ -17,9 +17,8 @@ class CreateOrderDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
-            $table->dateTime('deleted_at');
+            $table->timestamps();
+
         });
     }
 

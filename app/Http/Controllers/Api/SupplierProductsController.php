@@ -21,7 +21,7 @@ class SupplierProductsController extends Controller
             return response($supplier_products, 200);
         } else {
             return response()->json([
-                "message" => "Product not found"
+                "message" => "Suppliers Products not found"
             ], 404);
         }
     }
@@ -29,16 +29,13 @@ class SupplierProductsController extends Controller
     public function createSupplierProducts(Request $request): JsonResponse
     {
         $supplier_products= new supplier_products();
-        $supplier_products->supplier_id = $request->supplier_id;
+        $supplier_products->supply_id = $request->supply_id;
         $supplier_products->product_id = $request->product_id;
-        $supplier_products->created_at = $request->created_at;
-        $supplier_products->updated_at = $request->updated_at;
-        $supplier_products->deleted_at = $request->deleted_at;
 
         $supplier_products->save();
 
         return response()->json([
-            "message" => "Product record created"
+            "message" => "Suppliers Products record created"
         ], 201);
     }
 
@@ -46,7 +43,7 @@ class SupplierProductsController extends Controller
         if (supplier_products::where('id', $id)->exists()) {
             $supplier_products = supplier_products::find($id);
 
-            $supplier_products->supplier_id = is_null($request->supplier_id) ? $supplier_products->supplier_id : $supplier_products->supplier_id;
+            $supplier_products->supply_id = is_null($request->supply_id) ? $supplier_products->supply_id : $supplier_products->supply_id;
             $supplier_products->product_id = is_null($request->product_id) ? $supplier_products->product_id : $supplier_products->product_id;
             $supplier_products->save();
 
@@ -55,7 +52,7 @@ class SupplierProductsController extends Controller
             ], 200);
         } else {
             return response()->json([
-                "message" => "Order details not found"
+                "message" => "Suppliers Products details not found"
             ], 404);
         }
     }
@@ -70,7 +67,7 @@ class SupplierProductsController extends Controller
             ], 202);
         } else {
             return response()->json([
-                "message" => "Order details not found"
+                "message" => "Suppliers Orders details not found"
             ], 404);
         }
     }

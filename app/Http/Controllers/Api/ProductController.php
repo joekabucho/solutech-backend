@@ -31,9 +31,6 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->quantity = $request->quantity;
-        $product->created_at = $request->created_at;
-        $product->updated_at = $request->updated_at;
-        $product->deleted_at = $request->deleted_at;
 
         $product->save();
 
