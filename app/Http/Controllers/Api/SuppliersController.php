@@ -9,12 +9,12 @@ use App\Models\Suppliers;
 
 class SuppliersController extends Controller
 {
-    public function getAllSupplierProducts() {
+    public function getAllSuppliers() {
         $supplier = Suppliers::get()->toJson(JSON_PRETTY_PRINT);
         return response($supplier, 200);
     }
 
-    public function getSupplierProducts($id) {
+    public function getSupplier($id) {
         if (Suppliers::where('id', $id)->exists()) {
             $supplier = Suppliers::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
             return response($supplier, 200);
@@ -25,7 +25,7 @@ class SuppliersController extends Controller
         }
     }
 
-    public function createSupplierProducts(Request $request): JsonResponse
+    public function createSuppliers(Request $request): JsonResponse
     {
         $supplier= new Suppliers();
         $supplier->name = $request->name;
@@ -40,7 +40,7 @@ class SuppliersController extends Controller
         ], 201);
     }
 
-    public function updateSupplierProducts(Request $request, $id) {
+    public function updateSuppliers(Request $request, $id) {
         if (Suppliers::where('id', $id)->exists()) {
             $supplier = Suppliers::find($id);
 
@@ -56,7 +56,7 @@ class SuppliersController extends Controller
             ], 404);
         }
     }
-    public function deleteSupplierProducts ($id): JsonResponse
+    public function deleteSuppliers ($id): JsonResponse
     {
         if(Suppliers::where('id', $id)->exists()) {
             $supplier = Suppliers::find($id);
