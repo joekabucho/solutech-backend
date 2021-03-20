@@ -10,14 +10,14 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function getAllProducts() {
-        $books = Product::get()->toJson(JSON_PRETTY_PRINT);
-        return response($books, 200);
+        $products = Product::get()->toJson(JSON_PRETTY_PRINT);
+        return response($products, 200);
     }
 
     public function getProduct($id) {
         if (Product::where('id', $id)->exists()) {
-            $book = Product::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($book, 200);
+            $products = Product::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+            return response($products, 200);
         } else {
             return response()->json([
                 "message" => "Product not found"
