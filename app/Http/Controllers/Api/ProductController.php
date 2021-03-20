@@ -1,105 +1,78 @@
 <?php
+
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Validation\Validator;
+use App\Models\Product;
+
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
-    {
-        $products = Product::all();
-        return response()->json([
-            "success" => true,
-            "message" => "Product List",
-            "data" => $products
-        ]);
+    public function getAllProducts() {
+        $books = Product::get()->toJson(JSON_PRETTY_PRINT);
+        return response($books, 200);
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(Request $request)
-    {
-        $input = $request->all();
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+
+    public function getProduct($id) {
+        if (Product::where('id', $id)->exists()) {
+            $book = Product::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+            return response($book, 200);
+        } else {
+            return response()->json([
+                "message" => "Product not found"
+            ], 404);
         }
-        $product = Product::create($input);
-        return response()->json([
-            "success" => true,
-            "message" => "Product created successfully.",
-            "data" => $product
-        ]);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
+
+    public function createProduct(Request $request): JsonResponse
     {
-        $product = Product::find($id);
-        if (is_null($product)) {
-            return $this->sendError('Product not found.');
-        }
-        return response()->json([
-            "success" => true,
-            "message" => "Product retrieved successfully.",
-            "data" => $product
-        ]);
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request, Product $product)
-    {
-        $input = $request->all();
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
-        }
-        $product->name = $input['name'];
-        $product->detail = $input['detail'];
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->quantity = $request->quantity;
+        $product->created_at = $request->created_at;
+        $product->updated_at = $request->updated_at;
+        $product->deleted_at = $request->deleted_at;
+
         $product->save();
+
         return response()->json([
-            "success" => true,
-            "message" => "Product updated successfully.",
-            "data" => $product
-        ]);
+            "message" => "Product record created"
+        ], 201);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(Product $product)
+
+    public function updateProduct(Request $request, $id) {
+        if (Product::where('id', $id)->exists()) {
+            $product = Product::find($id);
+
+            $product->name = is_null($request->name) ? $product->name : $product->name;
+            $product->description = is_null($request->description) ? $product->description : $product->description;
+            $product->quantity = is_null($request->quantity) ? $product->quantity : $product->quantity;
+            $product->save();
+
+            return response()->json([
+                "message" => "records updated successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Product not found"
+            ], 404);
+        }
+    }
+    public function deleteProduct ($id): JsonResponse
     {
-        $product->delete();
-        return response()->json([
-            "success" => true,
-            "message" => "Product deleted successfully.",
-            "data" => $product
-        ]);
+        if(Product::where('id', $id)->exists()) {
+            $product = Product::find($id);
+            $product->delete();
+
+            return response()->json([
+                "message" => "records deleted"
+            ], 202);
+        } else {
+            return response()->json([
+                "message" => "Product not found"
+            ], 404);
+        }
     }
 }
